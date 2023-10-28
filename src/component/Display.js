@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Display({ products,setProducts }) {
+    localStorage.setItem('products',JSON.stringify(products))
     let total = 0;
     products.forEach(element => {
         total = total + element.price
@@ -8,7 +9,6 @@ function Display({ products,setProducts }) {
     
     const deleteHandler = (id) => {
        const newProducts =  products.filter(product =>product.id !== id);
-       localStorage.setItem('products', JSON.stringify(newProducts));
        setProducts(newProducts)
     }
     return (
