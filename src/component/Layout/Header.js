@@ -4,12 +4,12 @@ import { BiCartAlt } from 'react-icons/bi';
 
 const Wrapper = styled.div`
 position: sticky;
-top: 0;
   display: flex;
   justify-content: space-around;
   padding : 10px;
   background-color :#890707;
   align-items : center;
+  z-index: 1000;
 `;
 const Head = styled.div`
    font-size : 30px;

@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import Summary from './Summary'
+import Items from './Items'
 
 const Wrapper = styled.div`
- height:100vh;
 color : white
 `
 
@@ -11,6 +11,7 @@ function Main() {
   return (
     <Wrapper>
       <Summary/>
+      <Items/>
     </Wrapper>
   )
 }

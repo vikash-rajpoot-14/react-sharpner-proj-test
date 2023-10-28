@@ -2,10 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Card = styled.div`
-position : absolute;
-top : 30%;
-right : 30%;
 width: 40rem;
+margin : 80px auto;
 background-color : grey;
 padding :10px;
 border-radius :10px;
