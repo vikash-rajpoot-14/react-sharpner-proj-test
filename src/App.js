@@ -4,15 +4,23 @@ import myImage from "./assets/lidye-1Shk_PkNkNw-unsplash.jpg"
 import Main from "./component/Layout/Main";
 
 const Wrapper = styled.div`
-margin : 0px
+background-image: url(${myImage});
+background-repeat: no-repeat;
+background-size: 100% 100% ;
+background-attachment: scroll;
+background-position:center;
+min-height: 100vh;
+margin : 0px;
 `
 
 function App() {
   return (
-    <Wrapper >
-      <Header/>
-      <Main />
-    </Wrapper>
+    <>
+      <Header />
+      <Wrapper >
+        <Main />
+      </Wrapper>
+    </>
   );
 }
 

@@ -4,7 +4,8 @@ import Summary from './Summary'
 import Items from './Items'
 
 const Wrapper = styled.div`
-color : white
+color : white;
+padding : 40px;
 `
 
 function Main() {

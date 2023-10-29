@@ -4,6 +4,7 @@ import { BiCartAlt } from 'react-icons/bi';
 
 const Wrapper = styled.div`
 position: sticky;
+top: 0px;
   display: flex;
   justify-content: space-around;
   padding : 10px;

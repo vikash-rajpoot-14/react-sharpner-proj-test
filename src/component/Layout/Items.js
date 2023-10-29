@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { DUMMY_MEALS } from '../../utils/dummydata'
 
 const Card = styled.div`
-margin : 80px auto;
-width: 55rem;
+margin :  auto;
+width: 70vw;
 color : black;
 background-color : white;
 padding :20px;
@@ -27,12 +27,54 @@ const Price = styled.p`
 color : #de930a;
 margin:5px 20px
 `
-
+const Block = styled.div`
+display : flex;
+justify-content: space-between;
+align-items: center;
+`;
+const Title = styled.div``;
+const Description = styled.div`
+margin : 5px;
+padding : 5px;
+`;
+const Amount = styled.div`
+margin : 5px 10px;
+font-weight : bold;
+`;
+const Input = styled.input`
+width : 45px;
+height : 25px;
+border-radius : 5px;
+text-align : center;
+`;
+const Button = styled.button`
+margin: 5px 5px 5px 50px;
+background-color: #520606;
+padding: 5px 13px;
+font-size: 14px;
+color: white;
+font-weight: bold;
+border-radius: 30px;
+`;
 function Items() {
   return (
     <Card>
       <List>
-        {DUMMY_MEALS?.map(item=><li><Name>{item.name}</Name><DESC>{item.description}</DESC><Price>${item.price}</Price><hr/></li>)}
+        {DUMMY_MEALS?.map(item=><li>
+          <Block>
+            <Title>
+          <Name>{item.name}</Name><DESC>{item.description}</DESC><Price>${item.price}</Price>
+            </Title>
+            <Description>
+              <div style={{display:"flex",alignItems:"center"}}>
+              <Amount>Amount</Amount>
+              <Input type='number' />
+              </div>
+              <Button>+ Add</Button>
+            </Description>
+          </Block>
+          <hr/>
+          </li>)}
       </List>
     </Card>
   )
