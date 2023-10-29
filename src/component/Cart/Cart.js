@@ -10,8 +10,7 @@ background-color :white;
 color : black;
 border-radius : 10px;
 font-weight: bold;
-
-` 
+`
 
 const Desc = styled.div`
 margin : 0 5px 0 0;
@@ -28,7 +27,7 @@ font-size : 20px;
 margin:5px 25px 5px 0px;
 `
 
-const Price = styled.p`
+const Price = styled.div`
 display : flex ;
 align-items : center;
 justify-content : space-between;
@@ -95,44 +94,49 @@ font-size: 17px;
 color: #520606;
 border-radius: 20px;
 cursor: pointer;
-
 `;
-const dummyData = [{id:"1",name: "susshi",price: 150 , quantity : 1},{id:"2",name: "banana",price: 100 , quantity : 3}]
-function Cart() {
- 
 
-  return (
-    <Modal>
-     <Wrapper>
-     <List>
-        {dummyData?.map((item,index)=><li key={index}>
-          <Block>
-            <Title>
-          <Name>{item.name}</Name><Price>${item.price}<Box>x {item.quantity}</Box></Price>
-            </Title>
-            <Description>
-              <Button >-</Button>
-              <Button >+</Button>
-            </Description>
-          </Block>
-          <hr/>
-          </li>)}
-      </List>
-      <Desc>
-      <Description>
-              <Sum >
-              <Amount>Total Amount</Amount>
-              <div>$5500</div>
-              </Sum>
-              <Close>
-              <Button2 >Close</Button2>
-              <Button1 >Order</Button1>
-              </Close>
-            </Description>
-      </Desc>
-     </Wrapper>
-    </Modal>
-  )
+const dummyData = [{ id: "1", name: "susshi", price: 150, quantity: 1 }, { id: "2", name: "banana", price: 100, quantity: 3 }]
+
+
+function Cart({ cart, setCart }) {
+
+    const closehandler = () => {
+        setCart(false)
+    }
+
+    return (
+        <Modal>
+            {cart && <Wrapper>
+                <List>
+                    {dummyData?.map((item, index) => <li key={index}>
+                        <Block>
+                            <Title>
+                                <Name>{item.name}</Name><Price>${item.price}<Box>x {item.quantity}</Box></Price>
+                            </Title>
+                            <Description>
+                                <Button >-</Button>
+                                <Button >+</Button>
+                            </Description>
+                        </Block>
+                        <hr />
+                    </li>)}
+                </List>
+                <Desc>
+                    <Description>
+                        <Sum >
+                            <Amount>Total Amount</Amount>
+                            <div>$5500</div>
+                        </Sum>
+                        <Close>
+                            <Button2 onClick={closehandler}>Close</Button2>
+                            <Button1 >Order</Button1>
+                        </Close>
+                    </Description>
+                </Desc>
+            </Wrapper>}
+        </Modal>
+    )
 }
 
 export default Cart

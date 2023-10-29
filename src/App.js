@@ -3,6 +3,7 @@ import Header from "./component/Layout/Header";
 import myImage from "./assets/lidye-1Shk_PkNkNw-unsplash.jpg"
 import Main from "./component/Layout/Main";
 import Cart from "./component/Cart/Cart";
+import { useState } from "react";
 
 const Wrapper = styled.div`
 background-image: url(${myImage});
@@ -15,10 +16,12 @@ margin : 0px;
 `
 
 function App() {
+  const [cart,setCart] = useState(false);
+
   return (
-    <Wrapper >
-      <Cart />
-      <Header />
+    <Wrapper>
+      <Cart cart={cart} setCart={setCart}/>
+      <Header  cart={cart} setCart={setCart}/>
       <Main />
     </Wrapper>
   );

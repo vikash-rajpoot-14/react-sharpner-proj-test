@@ -58,7 +58,7 @@ cursor: pointer;
 font-weight: bold;
 border-radius: 30px;
 `;
-function Items() {
+function Meals() {
   const addHandler = (e)=>{
     console.log("item added",e.target.value);
   }
@@ -85,4 +85,4 @@ function Items() {
   )
 }
 
-export default Items
+export default Meals

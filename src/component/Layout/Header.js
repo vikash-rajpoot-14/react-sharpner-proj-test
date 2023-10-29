@@ -12,6 +12,7 @@ top: 0px;
   align-items : center;
   z-index: 1000;
 `;
+
 const Head = styled.div`
    font-size : 30px;
    font-weight : bold;
@@ -24,7 +25,8 @@ align-items : center;
 padding : 2px 20px;
 background-color :#520606;
 color :white;
-border-radius : 50px
+border-radius : 50px;
+cursor : pointer;
 `;
 
 const Value = styled.div`
@@ -40,11 +42,15 @@ font-weight : bold;
 `
 const cartvalue = 0;
 
-function Header() {
+function Header({cart,setCart}) {
+
+    const handleClick = ()=>{
+        setCart(true)
+    }
     return (
         <Wrapper>
             <Head>React Meals</Head>
-            <Cart><BiCartAlt style={{ margin: "5px", width: "20px", height: "20px" }} /><Text>Your Cart</Text> <Value>{cartvalue}</Value></Cart>
+            <Cart onClick={handleClick}><BiCartAlt style={{ margin: "5px", width: "20px", height: "20px" }} /><Text>Your Cart</Text> <Value>{cartvalue}</Value></Cart>
         </Wrapper>
     )
 }

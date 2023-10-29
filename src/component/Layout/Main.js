@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Summary from './Summary'
-import Items from './Items'
+import Items from '../Meals/Meals'
 
 const Wrapper = styled.div`
 color : white;
