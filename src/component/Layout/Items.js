@@ -44,6 +44,7 @@ font-weight : bold;
 const Input = styled.input`
 width : 45px;
 height : 25px;
+font-weight: bold;
 border-radius : 5px;
 text-align : center;
 `;
@@ -53,14 +54,18 @@ background-color: #520606;
 padding: 5px 13px;
 font-size: 14px;
 color: white;
+cursor: pointer;
 font-weight: bold;
 border-radius: 30px;
 `;
 function Items() {
+  const addHandler = (e)=>{
+    console.log("item added",e.target.value);
+  }
   return (
     <Card>
       <List>
-        {DUMMY_MEALS?.map(item=><li>
+        {DUMMY_MEALS?.map((item,index)=><li key={index}>
           <Block>
             <Title>
           <Name>{item.name}</Name><DESC>{item.description}</DESC><Price>${item.price}</Price>
@@ -68,9 +73,9 @@ function Items() {
             <Description>
               <div style={{display:"flex",alignItems:"center"}}>
               <Amount>Amount</Amount>
-              <Input type='number' />
+              <Input type='number'min={1} max={5} defaultValue={1}/>
               </div>
-              <Button>+ Add</Button>
+              <Button onClick={(e)=>addHandler(e)}>+ Add</Button>
             </Description>
           </Block>
           <hr/>
