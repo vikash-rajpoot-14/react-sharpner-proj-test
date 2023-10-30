@@ -24,7 +24,7 @@ function App() {
     <CartContext.Provider value={{cartItem :cartItem,setCartItem:setCartItem}}>
     <Wrapper>
       <Cart cart={cart} setCart={setCart}/>
-      <Header  cart={cart} setCart={setCart}/>
+      <Header cart={cart} setCart={setCart} />
       <Main />
     </Wrapper>
     </CartContext.Provider>

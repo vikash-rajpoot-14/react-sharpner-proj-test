@@ -44,10 +44,13 @@ font-weight : bold;
 
 function Header({cart,setCart}) {
    const ctx = useContext(CartContext);
-   let cartvalue = ctx.cartItem.reduce((a,cv)=>cv.quantity+a,0 )
+   let cartvalue = 0
+   ctx.cartItem.forEach((el)=>{
+    cartvalue += el['stock']['L']+el['stock']['M']+el['stock']['S'];
+   })
 
     const handleClick = ()=>{
-        setCart(true)
+        setCart(!cart)
     }
     return (
         <Wrapper>

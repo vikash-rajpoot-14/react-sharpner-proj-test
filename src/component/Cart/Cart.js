@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 position: absolute;
 top: 20%;
 left :29%;
-min-width:40vw;
+min-width:60vw;
 background-color :white;
 box-shadow : 100px 100px 400px black,-100px -100px 400px black,100px -100px 400px black,-100px 100px 400px black;
 color : black;
@@ -27,7 +27,8 @@ const List = styled.ul`
 
 const Name = styled.p`
 font-weight : bold;
-font-size : 20px;
+font-size : 15px;
+width : 30vw;
 margin:5px 25px 5px 0px;
 `
 
@@ -38,12 +39,13 @@ justify-content : space-between;
 color : #be5521;
 `
 const Block = styled.div`
-display : flex;
-width : 40vw;
-justify-content: space-between;
+width : 60vw;
 align-items: center;
 `;
 const Title = styled.div`
+display : flex;
+justify-content: space-between;
+align-items: center;
 margin : 5px;
 padding : 5px;`;
 const Description = styled.div`
@@ -55,15 +57,26 @@ margin : 5px 10px;
 font-weight : bold;
 `;
 
-const Button = styled.button`
-margin: 5px;
-padding: 2px 13px;
-cursor: pointer;
+// const Button = styled.button`
+// margin: 5px;
+// padding: 2px 13px;
+// cursor: pointer;
+// &:hover {
+//     background-color: #520606;
+//     color: white
+// }
+// box-shadow: 0 4px #999;
+// &:active {
+//   background-color:#520606 ;
+//   color: white;
+//   box-shadow: 0 0px #999;
+//   transform: translateY(4px);
+// }
 
-font-size: 20px;
-color: #520606;
-border-radius: 5px;
-`;
+// font-size: 20px;
+// color: #520606;
+// border-radius: 5px;
+// `;
 const Sum = styled.div`
 display : flex ;
 align-items : center;
@@ -74,8 +87,8 @@ const Box = styled.p`
 border: 1px solid grey;
 border-radius: 5px;
 padding:2px;
+height:fit-content;
 color: #be5521;
-
 `;
 const Close = styled.div`
 display : flex ;
@@ -90,6 +103,17 @@ color: white;
 border-radius: 20px;
 background-color :#520606;
 cursor: pointer;
+&:hover {
+    background-color: #520606;
+    color: white
+}
+box-shadow: 0 4px #999;
+&:active {
+  background-color:#520606 ;
+  color: white;
+  box-shadow: 0 0px #999;
+  transform: translateY(4px);
+}
 `;
 const Button2 = styled.button`
 margin: 5px;
@@ -98,35 +122,35 @@ font-size: 17px;
 color: #520606;
 border-radius: 20px;
 cursor: pointer;
+&:hover {
+    background-color: #520606;
+    color: white
+}
+box-shadow: 0 4px #999;
+&:active {
+  background-color:#520606 ;
+  color: white;
+  box-shadow: 0 0px #999;
+  transform: translateY(4px);
+}
 `;
 
-// const dummyData = [{ id: "1", name: "susshi", price: 150, quantity: 1 }, { id: "2", name: "banana", price: 100, quantity: 3 }]
 
 
 function Cart({ cart, setCart }) {
+
    const ctx = useContext(CartContext);
+    
     const closehandler = () => {
         setCart(!cart)
     }
-    const total = ctx.cartItem.reduce((acc,cv)=>cv.price*cv.quantity + acc,0).toFixed(2);
 
-   const addHandler = (id)=>{
-    const ans = ctx.cartItem.findIndex(c => c.id === id);
-   if(ans!==-1){
-        ctx.cartItem[ans].quantity += 1
-        ctx.setCartItem([...ctx.cartItem])
-    }
-   }
-   const substractHandler = (id)=>{
-    const ans = ctx.cartItem.findIndex(c => c.id === id);
-    if(ctx.cartItem[ans].quantity===1){
-        const items = ctx.cartItem.filter(c => c.id!==id);
-        ctx.setCartItem([...items])
-    }else if(ans!==-1){
-        ctx.cartItem[ans].quantity -= 1
-        ctx.setCartItem([...ctx.cartItem])
-    }
-   }
+    let total = 0
+    ctx.cartItem.forEach(item=>{
+        total += item.price * (item['stock']['L']+item['stock']['M']+item['stock']['S'])
+    })
+   
+   
 
     return (
         <Modal>
@@ -135,12 +159,8 @@ function Cart({ cart, setCart }) {
                     {ctx.cartItem?.map((item) => <li key={item.id}>
                         <Block>
                             <Title>
-                                <Name>{item.name}</Name><Price>${item.price}<Box>x {item.quantity}</Box></Price>
+                                <Name>{item.name}</Name><Box>{item['stock']['L']} L</Box><Box>{item['stock']['M']} M</Box><Box>{item['stock']['S']} S</Box><Price>${item.price*(item['stock']['L']+item['stock']['M']+item['stock']['S'])}</Price>
                             </Title>
-                            <Description>
-                                <Button onClick={()=>substractHandler(item.id)}>-</Button>
-                                <Button onClick={()=>addHandler(item.id)}>+</Button>
-                            </Description>
                         </Block>
                         <hr />
                     </li>)}
@@ -162,4 +182,4 @@ function Cart({ cart, setCart }) {
     )
 }
 
-export default Cart
+export default Cart;
