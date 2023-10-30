@@ -7,6 +7,7 @@ const Wrapper = styled.div`
 position: absolute;
 top: 20%;
 left :29%;
+min-width:40vw;
 background-color :white;
 box-shadow : 100px 100px 400px black,-100px -100px 400px black,100px -100px 400px black,-100px 100px 400px black;
 color : black;
@@ -104,23 +105,41 @@ cursor: pointer;
 
 function Cart({ cart, setCart }) {
    const ctx = useContext(CartContext);
-
     const closehandler = () => {
         setCart(!cart)
     }
-    const total = ctx.cartItem.reduce((acc,cv)=>cv.price + acc,0).toFixed(2)
+    const total = ctx.cartItem.reduce((acc,cv)=>cv.price*cv.quantity + acc,0).toFixed(2);
+
+   const addHandler = (id)=>{
+    const ans = ctx.cartItem.findIndex(c => c.id === id);
+   if(ans!==-1){
+        ctx.cartItem[ans].quantity += 1
+        ctx.setCartItem([...ctx.cartItem])
+    }
+   }
+   const substractHandler = (id)=>{
+    const ans = ctx.cartItem.findIndex(c => c.id === id);
+    if(ctx.cartItem[ans].quantity===1){
+        const items = ctx.cartItem.filter(c => c.id!==id);
+        ctx.setCartItem([...items])
+    }else if(ans!==-1){
+        ctx.cartItem[ans].quantity -= 1
+        ctx.setCartItem([...ctx.cartItem])
+    }
+   }
+
     return (
         <Modal>
             {!!cart && <Wrapper >
                 <List>
-                    {ctx.cartItem?.map((item, index) => <li key={index}>
+                    {ctx.cartItem?.map((item) => <li key={item.id}>
                         <Block>
                             <Title>
                                 <Name>{item.name}</Name><Price>${item.price}<Box>x {item.quantity}</Box></Price>
                             </Title>
                             <Description>
-                                <Button >-</Button>
-                                <Button >+</Button>
+                                <Button onClick={()=>substractHandler(item.id)}>-</Button>
+                                <Button onClick={()=>addHandler(item.id)}>+</Button>
                             </Description>
                         </Block>
                         <hr />
