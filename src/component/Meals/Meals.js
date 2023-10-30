@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { DUMMY_MEALS } from '../../utils/dummydata'
+import CartContext from '../CartContext.js'
 
 const Card = styled.div`
 margin :  auto;
@@ -59,27 +60,44 @@ font-weight: bold;
 border-radius: 30px;
 `;
 function Meals() {
-  const addHandler = (e)=>{
-    console.log("item added",e.target.value);
+  const ctx = useContext(CartContext);
+
+  const addHandler = (item) => {
+    const quantity = document.getElementById(`${item.id}`).value;
+    const ans = ctx.cartItem.findIndex(el => el.id === item.id);
+    if (ans === -1) {
+      const data = {
+        id: item.id,
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        quantity: +quantity
+      }
+    ctx.setCartItem([...ctx.cartItem, data])
+    } else {
+      ctx.cartItem[ans].quantity += +quantity;
+      ctx.setCartItem([...ctx.cartItem]);
+    }
+
   }
   return (
     <Card>
       <List>
-        {DUMMY_MEALS?.map((item,index)=><li key={index}>
+        {DUMMY_MEALS?.map((item, index) => <li key={item.id}>
           <Block>
             <Title>
-          <Name>{item.name}</Name><DESC>{item.description}</DESC><Price>${item.price}</Price>
+              <Name>{item.name}</Name><DESC>{item.description}</DESC><Price>${item.price}</Price>
             </Title>
             <Description>
-              <div style={{display:"flex",alignItems:"center"}}>
-              <Amount>Amount</Amount>
-              <Input type='number'min={1} max={5} defaultValue={1}/>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Amount>Amount</Amount>
+                <Input type='number' id={item.id} min={1} max={5} defaultValue={1}  />
               </div>
-              <Button onClick={(e)=>addHandler(e)}>+ Add</Button>
+              <Button onClick={(e) => addHandler(item)}>+ Add</Button>
             </Description>
           </Block>
-          <hr/>
-          </li>)}
+          <hr />
+        </li>)}
       </List>
     </Card>
   )

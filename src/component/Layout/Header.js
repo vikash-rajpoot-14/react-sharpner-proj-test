@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { BiCartAlt } from 'react-icons/bi';
+import CartContext from '../CartContext';
 
 const Wrapper = styled.div`
 position: sticky;
@@ -40,9 +41,10 @@ const Text = styled.div`
 font-size : 15px;
 font-weight : bold;
 `
-const cartvalue = 0;
 
 function Header({cart,setCart}) {
+   const ctx = useContext(CartContext);
+   let cartvalue = ctx.cartItem.reduce((a,cv)=>cv.quantity+a,0 )
 
     const handleClick = ()=>{
         setCart(true)
